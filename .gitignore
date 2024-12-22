@@ -12,3 +12,4 @@ script/
 logs/
 output/
 images/*.pyc
+.DS_Store
