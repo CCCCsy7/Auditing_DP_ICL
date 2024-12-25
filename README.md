@@ -44,12 +44,22 @@ python get_embeddings.py --input_file [e.g. gpt_0shot_10ensemble_0canary.jsonl]
 The `input_file` is the name of files under `./data/original_output`.
 
 
-### Privately Aggregation
+### Private Aggregation
 
-Phase IV: privately aggregation.
+Phase IV: Private Aggregation.
 
 ```bash
 python ./aggregate_and_output.py --candidates_json gpt_0shot_10ensemble_0canary.jsonl --target_embeddings [gpt_3shot_10ensemble_25canary_embeddings.npy] --ensemble [10] --private [1] --eps [8]
 ```
 
 Note that `--candidates_json` must be `pt_0shot_10ensemble_0canary.jsonl` since we used 0-shot outputs as our candidates to choose from during the embedding2text phase.
+
+### Auditing
+
+Audit the effectiveness of DP-ICL mechanisms by determining whether inserted canaries can be inferred from privatized results.
+
+```bash
+python ./prompt/prompt.py --eps [epsilon_value] --canary_size [canary_size]
+```
+
+Mechanisms of epsilon 1.0, 3.0, and 8.0 were audited, and canary sizes of 10, 25, 50, 100, 150, and 200 were used for each epsilon. Files for auditing procedure require phases I-IV to be run first.
